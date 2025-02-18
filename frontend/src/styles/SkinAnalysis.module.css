@@ -1,0 +1,174 @@
+/* Full-page container with gradient background */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #ffdde1, #ee9ca7, #c7c5f4, #8e9dff);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  position: relative;
+}
+
+/* Skin analysis form */
+.skinAnalysis {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.9); /* Soft white with transparency */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  backdrop-filter: blur(10px); /* Subtle blur effect */
+  border: 1px solid rgba(255, 255, 255, 0.6); /* Light border */
+}
+
+/* Image Preview */
+.imagePreview {
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
+  margin: 15px auto;
+  border: 2px solid #ee9ca7;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff8f3;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Upload Button */
+.uploadLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ee9ca7;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.uploadLabel:hover {
+  background: #d47d92;
+}
+
+/* Analyze button */
+.analyzeButton {
+  background: #c7c5f4;
+  color: white;
+  font-weight: bold;
+}
+
+.analyzeButton:hover {
+  background: #8e9dff;
+}
+
+/* Skin tone result */
+.skinToneResult {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #444;
+}
+
+/* Logout Section */
+.welcomeLogoutSection {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 16px;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Loading Overlay */
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Spinner Animation */
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading Text */
+.loadingText {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Typewriter Effect Container */
+.typewriterContainer {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  width: 80%;
+  max-width: 400px;
+  border-left: 4px solid #8e9dff;
+}
+
+/* Typewriter Effect Text */
+.typewriterText {
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  overflow: hidden;
+  border-right: 2px solid #8e9dff;
+  animation: blinkCursor 0.8s infinite;
+}
+
+/* Blinking cursor effect */
+@keyframes blinkCursor {
+  50% { border-color: transparent; }
+}

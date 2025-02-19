@@ -145,23 +145,23 @@ async def analyze_skin_tone(file: UploadFile = File(...)):
 
         # Read the image file into memory
         image_bytes = await file.read()
-
-        # Convert bytes to a NumPy array
         image_array = np.frombuffer(image_bytes, dtype=np.uint8)
-
-        # Decode the image using OpenCV
         image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
         if image is None:
             raise HTTPException(status_code=400, detail="Invalid image format")
 
         # Analyze skin tone
-        skin_tone = analyze_skin_tone_from_image(image)
+        result = analyze_skin_tone_from_image(image)
 
-        return {"skin_tone": skin_tone}
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+
+        return result  # Now includes both "skin_tone" and "reason"
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/analyze-skin/")
 async def analyze_skin(file: UploadFile = File(...)):

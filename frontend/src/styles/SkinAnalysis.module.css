@@ -172,3 +172,22 @@
 @keyframes blinkCursor {
   50% { border-color: transparent; }
 }
+.cameraContainer {
+  text-align: center;
+  position: relative;
+}
+
+.cameraFeed {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  /* Ensure the video is flipped for a natural selfie feel */
+  transform: scaleX(-1);
+}
+
+
+
+
+.captureButton, .closeCameraButton {
+  margin: 10px;
+}

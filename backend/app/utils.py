@@ -66,32 +66,93 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def analyze_skin_tone_from_image(image: np.ndarray) -> str:
+def analyze_skin_tone_from_image(image: np.ndarray) -> dict:
     """
-    Analyze the skin tone of the image using YCrCb and LAB color space.
+    Analyze the skin tone of the face in an image and provide an explanation 
+    based on facial skin regions (forehead, cheeks, chin).
     """
     # Convert image to YCrCb and LAB color spaces
     image_ycrcb = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
     image_lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
 
-    # Extract mean values
-    avg_cr = np.mean(image_ycrcb[:, :, 1])  # Red chrominance
-    avg_cb = np.mean(image_ycrcb[:, :, 2])  # Blue chrominance
-    avg_l = np.mean(image_lab[:, :, 0])  # Lightness
+    # Convert image to grayscale for face detection
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Classify skin tone based on refined Cr, Cb, and L thresholds
+    # Load OpenCV pre-trained face detector (Haar cascade)
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
+
+    if len(faces) == 0:
+        return {"error": "No face detected in the image"}
+
+    # Assume the first detected face is the primary subject
+    x, y, w, h = faces[0]
+
+    # Define key facial regions (forehead, left cheek, right cheek, chin)
+    forehead = image[y:y + h // 5, x + w // 4:x + (3 * w) // 4]
+    left_cheek = image[y + (2 * h) // 5:y + (4 * h) // 5, x:x + w // 3]
+    right_cheek = image[y + (2 * h) // 5:y + (4 * h) // 5, x + (2 * w) // 3:x + w]
+    chin = image[y + (4 * h) // 5:y + h, x + w // 4:x + (3 * w) // 4]
+
+    # Function to get average Cr, Cb, and L values for a given region
+    def get_avg_skin_tone(region):
+        region_ycrcb = cv2.cvtColor(region, cv2.COLOR_BGR2YCrCb)
+        region_lab = cv2.cvtColor(region, cv2.COLOR_BGR2Lab)
+        avg_cr = np.mean(region_ycrcb[:, :, 1])
+        avg_cb = np.mean(region_ycrcb[:, :, 2])
+        avg_l = np.mean(region_lab[:, :, 0])
+        return avg_l, avg_cr, avg_cb
+
+    # Get average values for different regions
+    l_forehead, cr_forehead, cb_forehead = get_avg_skin_tone(forehead)
+    l_left_cheek, cr_left_cheek, cb_left_cheek = get_avg_skin_tone(left_cheek)
+    l_right_cheek, cr_right_cheek, cb_right_cheek = get_avg_skin_tone(right_cheek)
+    l_chin, cr_chin, cb_chin = get_avg_skin_tone(chin)
+
+    # Average out the values for the entire face
+    avg_l = (l_forehead + l_left_cheek + l_right_cheek + l_chin) / 4
+    avg_cr = (cr_forehead + cr_left_cheek + cr_right_cheek + cr_chin) / 4
+    avg_cb = (cb_forehead + cb_left_cheek + cb_right_cheek + cb_chin) / 4
+
+    # Determine skin tone category with explanation based on facial features
     if avg_l > 190 and avg_cr > 140:
-        return "Very Fair"
+        skin_tone = "Very Fair"
+        reason = (
+            f"Your forehead and cheeks have high lightness (L > 190) and strong red chrominance (Cr > 140), "
+            f"which indicates a very fair complexion with minimal melanin."
+        )
     elif avg_l > 160 and avg_cr > 135:
-        return "Fair"
+        skin_tone = "Fair"
+        reason = (
+            f"Your forehead and cheeks show moderate brightness (L > 160) with noticeable red undertones (Cr > 135). "
+            f"This suggests fair skin with a warm undertone."
+        )
     elif avg_l > 130 and avg_cr > 130:
-        return "Medium"
+        skin_tone = "Medium"
+        reason = (
+            f"The lightness of your facial skin (L > 130) and balanced red chrominance (Cr > 130) "
+            f"indicate a medium skin tone with a neutral undertone."
+        )
     elif avg_l > 100 and avg_cr > 125:
-        return "Olive"
+        skin_tone = "Olive"
+        reason = (
+            f"Your cheeks and chin exhibit moderate lightness (L > 100) with warm red tones (Cr > 125), "
+            f"suggesting an olive skin tone commonly found in Mediterranean or Middle Eastern complexions."
+        )
     elif avg_l > 70 and avg_cr > 120:
-        return "Dark Brown"
+        skin_tone = "Dark Brown"
+        reason = (
+            f"Your facial skin has a lower lightness level (L > 70) with strong melanin presence, "
+            f"giving it a deep brown appearance."
+        )
     else:
-        return "Deeply Pigmented"
+        skin_tone = "Deeply Pigmented"
+        reason = (
+            f"Your facial skin shows very low lightness (L < 70) with high melanin absorption, "
+            f"resulting in a deeply pigmented complexion."
+        )
+
+    return {"skin_tone": skin_tone, "reason": reason}
     
 # Function to send verification email
 def send_verification_email(recipient_email: str, username: str, token: str):

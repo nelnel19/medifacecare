@@ -3,103 +3,143 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #b8a2a5, #f1c0c6); /* Gradient Pink */
     min-height: 100vh;
+    min-width: 100vw; /* Ensures full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: url('/public/assets/1.png') no-repeat center center fixed;
+    background-size: cover; /* Cover entire screen */
+    background-attachment: fixed; /* Keeps background in place when scrolling */
+    color: white;
+    overflow-x: auto; /* Allows horizontal scrolling */
 }
 
 /* Navigation Bar */
-.startpage .navbar {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: white;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent navbar */
+    position: fixed; /* Keep navbar on top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 /* Logo Styling */
-.startpage .logo {
-    width: 150px;  /* Adjust size */
+.logo {
+    width: 150px;
     height: auto;
     object-fit: contain;
 }
 
 /* Navigation Links */
-.startpage .nav-links {
+.nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
 }
 
-.startpage .nav-links li {
+.nav-links li {
     font-size: 16px;
     cursor: pointer;
-}
-
-/* Icons */
-.startpage .icons {
-    display: flex;
-    gap: 15px;
-}
-
-.startpage .icon {
-    font-size: 18px;
-    cursor: pointer;
+    color: white;
 }
 
 /* Hero Section */
-.startpage .hero {
+.hero {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     text-align: center;
-    padding: 50px;
-    color: white;
+    padding: 120px 20px; /* Adjust for fixed navbar */
+    max-width: 900px;
 }
 
 /* Hero Text */
-.startpage .hero-text {
-    max-width: 600px;
+.hero-text h1 {
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-.startpage .hero-text h1 {
-    font-size: 40px;
+.hero-text p {
+    font-size: 18px;
+    margin: 10px 0;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Highlighted Text */
+.highlight {
+    color: #ffcccb;
     font-weight: bold;
 }
 
-.startpage .hero-text p {
-    font-size: 18px;
-    color: white;
-    margin: 10px 0;
-}
-
-.startpage .highlight {
-    color: black;
-}
-
 /* Shop Now Button */
-.startpage .shop-now-button {
-    background-color: black;
-    color: white;
+.shop-now-button {
+    background-color: white;
+    color: black;
     padding: 12px 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
     margin-top: 20px;
     border-radius: 5px;
+    transition: all 0.3s ease-in-out;
 }
 
-.startpage .shop-now-button:hover {
-    background-color: white;
-    color: black;
+.shop-now-button:hover {
+    background-color: black;
+    color: white;
 }
 
-/* Hero Image - Bigger & Centered */
-.startpage .hero-image img {
-    width: 500px;  /* Bigger size */
+/* Hero Images Section */
+.hero-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-images img {
+    width: 280px;
     height: auto;
     border-radius: 5px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
+}
+
+/* Ensure Fullscreen Scrollability */
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto; /* Allow scrolling sideways */
+    overflow-y: auto; /* Allow scrolling down */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero {
+        padding: 30px;
+    }
+
+    .hero-images img {
+        width: 90%;
+    }
 }

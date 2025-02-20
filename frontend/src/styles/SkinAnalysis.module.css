@@ -1,15 +1,62 @@
-/* Full-page container with gradient background */
+/* Full-page container with background image */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #ffdde1, #ee9ca7, #c7c5f4, #8e9dff);
+  background: url('/public/assets/8.png') no-repeat center center/cover;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   position: relative;
 }
+
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.welcomeText {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.skinAnalysis {
+  background: #a96b6b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagePreview {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.uploadLabel, .button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  background: #ffafbd;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.boxButton {
+  width: 160px;
+  height: 50px;
+  background: #ffafbd;
+}
+
+.boxButton:hover {
+  background: #ff758c;
+  transform: scale(1.05);
+}
+
 
 /* Skin analysis form */
 .skinAnalysis {
@@ -35,14 +82,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff8f3;
+  background: url('/public/assets/bg2.png') no-repeat center center;
+  background-size: cover;
+  background-color: #fff8f3;
+  position: relative;
 }
 
+/* Remove background when image is uploaded */
 .imagePreview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
+
 
 /* Upload Button */
 .uploadLabel {
@@ -76,6 +129,34 @@
   background: #8e9dff;
 }
 
+.resultsContainer {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 450px;
+  border-left: 5px solid #8e9dff;
+  backdrop-filter: blur(5px);
+  
+  /* Enable scrolling */
+  max-height: 200px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.resultsContainer h3 {
+  text-align: center;
+  font-size: 20px;
+  color: #444;
+}
+
+.resultsContainer p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
 /* Skin tone result */
 .skinToneResult {
   margin-top: 10px;
@@ -84,14 +165,20 @@
 }
 
 /* Logout Section */
+/* Logout Section */
 .welcomeLogoutSection {
   position: absolute;
   top: 20px;
   right: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   font-size: 16px;
+  background: rgb(249, 186, 205);
+  padding: 10px 20px;
+  border-radius: 50px; /* Oval shape */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Footer */
@@ -172,6 +259,7 @@
 @keyframes blinkCursor {
   50% { border-color: transparent; }
 }
+
 .cameraContainer {
   text-align: center;
   position: relative;
@@ -185,9 +273,7 @@
   transform: scaleX(-1);
 }
 
-
-
-
 .captureButton, .closeCameraButton {
   margin: 10px;
 }
+

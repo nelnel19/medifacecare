@@ -12,8 +12,9 @@ const HomePanel = () => {
       <section className={styles.content}>
         <h2 className={styles.title}>✨ Discover Your Skin's Needs ✨</h2>
         <p className={styles.subtitle}>
-          Our AI-powered system analyzes your facial skin to detect **tone**, **conditions**, and suggest the best **skincare** and **treatments**.  
-          Plus, you can find **nearby dermatologists** for professional care.
+          Our AI-powered system analyzes your facial skin to detect <strong>tone</strong>, <strong>conditions</strong>,
+          and suggest the best <strong>skincare</strong> and <strong>treatments</strong>.  
+          Plus, you can find <strong>nearby dermatologists</strong> for professional care.
         </p>
 
         <div className={styles.steps}>

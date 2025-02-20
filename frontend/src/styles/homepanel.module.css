@@ -1,7 +1,7 @@
-/* Main Container */
+/* Main Container with Background Image */
 .container {
     text-align: center;
-    background: linear-gradient(to bottom, #ffdde1, #ee9ca7, #c7c5f4, #8e9dff);
+    background: url('/public/assets/5.png') no-repeat center center/cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,7 @@
     color: #4a4a4a;
     font-family: "Poppins", sans-serif;
     padding: 20px;
+    position: relative;
 }
 
 /* Header */
@@ -74,7 +75,7 @@
 .step {
     display: flex;
     align-items: center;
-    background: linear-gradient(to right, #fff6f6, #fde2e2, #ffdee9);
+    background: rgba(255, 255, 255, 0.9);
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
